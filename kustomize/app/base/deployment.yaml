@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nodejs-sample-1
+  name: nodejs-sample-1
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: nodejs-sample-1
+  template:
+    metadata:
+      labels:
+        app: nodejs-sample-1
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+      - image: ___IMAGE_URL___@___IMAGE_DIGEST___
+        name: nodejs-sample-1
+        ports:
+        - containerPort: 3000
+          protocol: TCP
